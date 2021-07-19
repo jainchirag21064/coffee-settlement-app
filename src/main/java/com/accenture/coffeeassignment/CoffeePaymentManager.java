@@ -2,7 +2,7 @@ package com.accenture.coffeeassignment;
 
 import com.accenture.coffeeassignment.exception.CoffeePaymentManagerException;
 import com.accenture.coffeeassignment.models.Order;
-import com.accenture.coffeeassignment.models.Payments;
+import com.accenture.coffeeassignment.models.Payment;
 import com.accenture.coffeeassignment.models.Product;
 import com.accenture.coffeeassignment.models.Settlement;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,12 +31,11 @@ public class CoffeePaymentManager {
    * @param productsJsonFilePath - Absolute Path of Products Json File
    * @param orderJsonFilePath    - Absolute Path of Order Json File
    * @return settlementOfUsers - Map with key as user and value as settlement object representing amount paid and owed byt each user
-   * @throws IOException - IOException in case issue reading file
    */
   public Map<String, Settlement> evaluateAmountPaidAndOwedPerUser(String paymentsJsonFilePath,
-      String productsJsonFilePath, String orderJsonFilePath) throws IOException {
+      String productsJsonFilePath, String orderJsonFilePath) {
 
-    List<Payments> amountPaidByUsers = paymentsJsonToObjectMapper(paymentsJsonFilePath);
+    List<Payment> amountPaidByUsers = paymentsJsonToObjectMapper(paymentsJsonFilePath);
     List<Product> products = productsJsonToObjectMapper(productsJsonFilePath);
     List<Order> orders = ordersJsonToObjectMapper(orderJsonFilePath);
 
@@ -77,9 +76,15 @@ public class CoffeePaymentManager {
    * @param paymentsJsonFilePath - absolute path of the json file with the data that need to be processed
    * @return amountPaidByUsers - List of Payment object representing amount paid by each users
    */
-  private List<Payments> paymentsJsonToObjectMapper(String paymentsJsonFilePath) throws IOException {
-    return Arrays
-        .asList(objectMapper.readValue(Paths.get(paymentsJsonFilePath).toFile(), Payments[].class));
+  private List<Payment> paymentsJsonToObjectMapper(String paymentsJsonFilePath)
+      throws CoffeePaymentManagerException {
+    try {
+      return Arrays
+          .asList(
+              objectMapper.readValue(Paths.get(paymentsJsonFilePath).toFile(), Payment[].class));
+    } catch (IOException ioException) {
+      throw new CoffeePaymentManagerException("IO Exception while reading the Payments JSON  File");
+    }
 
   }
 
@@ -90,9 +95,15 @@ public class CoffeePaymentManager {
    * @param productsJsonFilePath - absolute path of the json file with the data that need to be processed
    * @return products - List of Product object representing different coffee products size and its respective price
    */
-  private List<Product> productsJsonToObjectMapper(String productsJsonFilePath) throws IOException {
-    return Arrays
-        .asList(objectMapper.readValue(Paths.get(productsJsonFilePath).toFile(), Product[].class));
+  private List<Product> productsJsonToObjectMapper(String productsJsonFilePath)
+      throws CoffeePaymentManagerException {
+    try {
+      return Arrays
+          .asList(
+              objectMapper.readValue(Paths.get(productsJsonFilePath).toFile(), Product[].class));
+    } catch (IOException ioException) {
+      throw new CoffeePaymentManagerException("IO Exception while reading the Products JSON File");
+    }
 
   }
 
@@ -103,9 +114,14 @@ public class CoffeePaymentManager {
    * @param orderJsonFilePath - absolute path of the json file with the data that need to be processed
    * @return orderPlacedByUser - List of Order placed by all user.
    */
-  private List<Order> ordersJsonToObjectMapper(String orderJsonFilePath) throws IOException {
-    return Arrays
-        .asList(objectMapper.readValue(Paths.get(orderJsonFilePath).toFile(), Order[].class));
+  private List<Order> ordersJsonToObjectMapper(String orderJsonFilePath)
+      throws CoffeePaymentManagerException {
+    try {
+      return Arrays
+          .asList(objectMapper.readValue(Paths.get(orderJsonFilePath).toFile(), Order[].class));
+    } catch (IOException ioException) {
+      throw new CoffeePaymentManagerException("IO Exception while reading the Orders JSON  File");
+    }
 
   }
 
@@ -117,10 +133,10 @@ public class CoffeePaymentManager {
    * @param amountPaidByUsers - List of User and the amount they paid.Same user might have paid multiple time
    * @return totalAmountPaidByUsers - Total Amount Paid per user where key is Unique user and value is total amount paid by him
    */
-  private Map<String, Double> calculateTotalAmountPaidPerUser(List<Payments> amountPaidByUsers) {
+  private Map<String, Double> calculateTotalAmountPaidPerUser(List<Payment> amountPaidByUsers) {
     return amountPaidByUsers.stream()
         .collect(Collectors
-            .groupingBy(Payments::getUser, Collectors.summingDouble(Payments::getAmount)));
+            .groupingBy(Payment::getUser, Collectors.summingDouble(Payment::getAmount)));
 
   }
 

@@ -47,7 +47,7 @@ public class CoffeePaymentManagerTest {
   public void test_EvaluateAmountPaidAndOwedPerUser_UnExpectedProductPlacedByExistingUserError() throws IOException {
     exceptionRule.expect(CoffeePaymentManagerException.class);
     exceptionRule.expectMessage("Unexpected Product found in Order by user.");
-    Map<String, Settlement> totalAmountPaidPerUserActual = underTest
+    underTest
         .evaluateAmountPaidAndOwedPerUser(getFilePathFromResources("payments.json"),
             getFilePathFromResources("products.json"), getFilePathFromResources(
                 "orders_UnExpectedProductExistingUser.json"));
@@ -59,7 +59,7 @@ public class CoffeePaymentManagerTest {
     exceptionRule.expect(CoffeePaymentManagerException.class);
     exceptionRule.expectMessage("Unexpected Product found in Order by user.");
 
-    Map<String, Settlement> totalAmountPaidPerUserActual = underTest
+    underTest
         .evaluateAmountPaidAndOwedPerUser(getFilePathFromResources("payments.json"),
             getFilePathFromResources("products.json"), getFilePathFromResources(
                 "orders_UnExpectedProductNewUser.json"));
