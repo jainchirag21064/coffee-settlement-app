@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class MainApp {
 
-  public static void main(String[] args) throws CoffeePaymentManagerException, IOException {
+  public static void main(String[] args) throws CoffeePaymentManagerException {
     Scanner sc = new Scanner(System.in);
     System.out.println("################## Coffee Settlement App ##################");
     System.out.println(
