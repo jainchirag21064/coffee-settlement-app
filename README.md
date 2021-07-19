@@ -33,14 +33,14 @@ orders.json is mapped to List<Order> representing each element of product json
 ## HOW-TO Run the Application
 > Windows
 ```bash
-git clone https://github.com/jainchirag21064/coffee-assesment.git
-cd coffee-assesment
+git clone https://github.com/jainchirag21064/coffee-settlement-app.git
+cd coffee-settlement-app
 mvnw.cmd clean install
-java -jar target\coffee-assesment-1.0-SNAPSHOT-jar-with-dependencies.jar
+java -jar target\coffee-settlement-app-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 > Linux/Mac/Git Bash
 ```shell
-git clone https://github.com/jainchirag21064/coffee-assesment.git
-cd coffee-assesment
+git clone https://github.com/jainchirag21064/coffee-settlement-app.git
+cd coffee-settlement-app
 ./mvnw clean install
-java -jar target/coffee-assesment-1.0-SNAPSHOT-jar-with-dependencies.jar
+java -jar target/coffee-settlement-app-1.0-SNAPSHOT-jar-with-dependencies.jar

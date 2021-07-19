@@ -2,7 +2,6 @@ package com.accenture.coffeeassignment;
 
 
 import com.accenture.coffeeassignment.exception.CoffeePaymentManagerException;
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -24,7 +23,7 @@ public class MainApp {
     String orderJsonFilePath = sc.nextLine();
 
     CoffeePaymentManager cpm = new CoffeePaymentManager();
-    System.out.println(cpm.evaluateAmountPaidAndOwedPerUser(paymentsJsonFilePath,productsJsonFilePath,orderJsonFilePath));
+    System.out.println("Result of amount paid and amount owed by each user for coffee settlement \n : " + cpm.evaluateAmountPaidAndOwedPerUser(paymentsJsonFilePath,productsJsonFilePath,orderJsonFilePath));
   }
 
 }
