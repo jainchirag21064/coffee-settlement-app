@@ -1,13 +1,13 @@
 # Coffee-Settlement App
 
-##Description
+## Description
 The application accepts 3 JSON files. The files contain data for products, orders and payments in products.json,orders.json and payments.json files respectively.
 
 The application then retrieves the following information given the provided files:
 - Amount paid per user.
 - Amount that each users still owes.
 
-##Requirements
+## Requirements
 - The program should be written in Java.
 - Write production-ready code.
 - Document how to run the application.
